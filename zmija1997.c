@@ -88,6 +88,19 @@ void ulazne_komande(){
     }
 }
 
+
+
+/*
+Ova funkcija efikasno osvežava ekran sa 64 LED diode red po red uz pristojan frame rate (25 ili više). Redovi su povezani na 
+8-bitni PORTC mikrokontrolera preko pnp tranzistora, a kolone direktno na 8-bitni PORTB. Za svaki red, ova funkcija skenira kroz 
+pozicije zmijinog tijela i hrane s odgovarajućim redom i samo dodaje njihove vrijednosti kolona u varijablu jednoga bajta. Varijabla 
+(bitno negirana) se tada samo prosljeđuje na latch LATB koji označava aktivne kolone za taj aktivni red. Mogućnost da se samo dodaju 
+kolone pozicije proizilazi iz činjenice da su pohranjene u nizu gdje su prikazane vrijednosti (x i y) u stvari u 'power of two' 
+nizu u obliku {{2^x, 2^y},}. Da se ova tehnika ne koristi (pohranjena u {{x, y},}), bilo bi teže postići visok frame rate 
+jer bi trebalo računati stepene s funkcijom pow(2, k) mnogo puta u sekundi, što bi bilo prilično skupo (sporo). Sada se pow(2, k) koristi
+samo jednom u programu kada inicijalizira nasumičnu poziciju zmije i svaki put kada se nova hrana mora generirati što se rijetko dešava. 
+U ovim slučajevima pow(2, k) funkcija se također može zamijeniti lijevim bit shiftingom.
+*/
 void osvjezi_ekran_igre(){
     char i,k;
     char aktivni_red = 1;
@@ -208,6 +221,7 @@ void inicijalizacija(){
     pozicije_zmije[0][1] = pow(2,rand()%8);
     generisi_novu_hranu();
 }
+
 
 char pomjeri_zmiju(){
     char k;
