@@ -4,3 +4,4 @@ on the selected PIC16F1939 microcontroller on a 8x8 custom lediode display fully
 The repository contains all other interesting files in the 'meta' folder.
 
 ![3d-prikaz](meta/3d.png)
+![dvoslojni-prikaz](meta/dvaslojaprikaz.png)
